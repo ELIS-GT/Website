@@ -6,22 +6,22 @@ export default function Loading() {
           <div className="h-[9em] w-[9em] rounded-full border-[10px] border-[#00000033] border-t-primary my-auto animate-spin"></div>
           <div className="text-[5em] font-[Montserrat, sans-serif] font-bold text-center select-none">
             <span
-              data-text="S"
+              data-text="E"
               className="inline-block relative text-[#00000033] before:text-primary before:content-[attr(data-text)] before:animate-[characters_4s_infinite] before:left-0 before:top-0 before:opacity-0 before:absolute -before:rotate-y-90"
             >
-              S
+              E
             </span>
             <span
-              data-text="A"
+              data-text="L"
               className="inline-block relative text-[#00000033] before:text-primary before:content-[attr(data-text)] before:animate-[characters_4s_infinite_0.2s] before:left-0 before:top-0 before:opacity-0 before:absolute -before:rotate-y-90"
             >
-              A
+              L
             </span>
             <span
-              data-text="S"
+              data-text="I"
               className="inline-block relative text-[#00000033] before:text-primary before:content-[attr(data-text)] before:animate-[characters_4s_infinite_0.4s] before:left-0 before:top-0 before:opacity-0 before:absolute -before:rotate-y-90"
             >
-              S
+              I
             </span>
             <span
               data-text="S"
@@ -29,18 +29,7 @@ export default function Loading() {
             >
               S
             </span>
-            <span
-              data-text="L"
-              className="inline-block relative text-[#00000033] before:text-primary before:content-[attr(data-text)] before:animate-[characters_4s_infinite_0.8s] before:left-0 before:top-0 before:opacity-0 before:absolute -before:rotate-y-90"
-            >
-              L
-            </span>
-            <span
-              data-text="Y"
-              className="inline-block relative text-[#00000033] before:text-primary before:content-[attr(data-text)] before:animate-[characters_4s_infinite_1s] before:left-0 before:top-0 before:opacity-0 before:absolute -before:rotate-y-90"
-            >
-              Y
-            </span>
+   
           </div>
         </div>
         <div className="fixed top-0 left-0 bg-white w-[calc(50%+1px)] h-full"></div>
