@@ -17,7 +17,7 @@ import Offcanvas1 from "../offcanvas/offcanvas1";
 import Signin from "../signin";
 import Signup from "../signup";
 import Menu2 from "../menu/menu2";
-
+import { useRouter } from "next/navigation";
 type Props = {
   headerNav: MenuDataType;
 };
@@ -26,6 +26,7 @@ const Header3 = ({ headerNav }: Props) => {
   const [scroll, setScroll] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isOpen2, setIsOpen2] = useState<boolean>(false);
+  const router = useRouter(); // ✅ hook del router
 
   useEffect(() => {
     window.addEventListener("scroll", scrollHeader);
@@ -59,7 +60,9 @@ const Header3 = ({ headerNav }: Props) => {
           <div
             className={cn(
               "relative flex gap-[20px] justify-between items-center h-[60px] md:h-[70px] max-w-[950px] rounded-full my-[20px] mx-auto px-[30px] py-[10px] 2xl:pe-[10px]",
-              scroll ? "bg-white-3" : "bg-[#FFFFFFD1]"
+              scroll
+                ? "bg-white/80 backdrop-blur-md shadow-md"
+                : "bg-white/60 backdrop-blur-sm"
             )}
           >
             <div>
@@ -69,15 +72,15 @@ const Header3 = ({ headerNav }: Props) => {
               <Menu2 headerNav={headerNav} />
             </div>
             <div className=" flex justify-end gap-4">
-              <Button
-                variant="primary2"
-                size="sm"
-                onClick={() => setIsOpen(true)}
-              >
-                <span className="btn-span" data-text="Sign up">
-                  Sign up
-                </span>
-              </Button>
+          <Button
+  variant="primary"
+  size="sm"
+  onClick={() => router.push("/contact")}
+>
+  <span className="btn-span" data-text="Contact">
+    Contact
+  </span>
+</Button>
               <div className="flex justify-end xl:hidden">
                 <Offcanvas1 headerNav={headerNav} />
               </div>

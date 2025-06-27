@@ -6,6 +6,7 @@ import Footer1 from "@/components/elements/footer/footer1";
 import ScrollSmootherComponent from "@/components/tools/scroll-smoother";
 import ToolsComponent from "@/components/tools";
 import ScrollTop from "@/components/tools/scroll-top";
+import Header3 from "@/components/elements/header/header3";
 
 const Layout = ({
   children,
@@ -17,7 +18,7 @@ const Layout = ({
       <ScrollSmootherComponent />
       <ToolsComponent />
       <ScrollTop />
-      <Header1 headerNav={navigation.header} />
+      <Header3 headerNav={navigation.header} />
       <div id="smooth-wrapper">
         <div id="smooth-content">
           <div className="absolute w-full h-[1100px] top-0 start-0 -z-[1] bg-gradient-180 from-[#FBF7F4] to-[#fbf7f400]" />
