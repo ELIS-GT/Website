@@ -13,9 +13,9 @@
     --border: #EBEDEF;
     --border-2: #5C6972;
 
-    --theme: #FF845D;
-    --theme-100: #FF845D10;
-    --theme-300: #FF845D30;
+    --theme: #6aa3d8;
+    --theme-100: #6aa3d810;
+    --theme-300: #6aa3d830;
 
     --black: #072032;
     --black-2: #5C6972;
@@ -26,7 +26,7 @@
     --white-2: #9BA0A3;
     --white-3: #FAFAFA;
 
-    --action: #FFCD4D;
+    --action: #6aa3d8;
 
     --gray: #666666;
     --gray-2: #d9d9d9;
@@ -37,7 +37,7 @@
 
     --destructive: #ff3333;
 
-    --btn-bg-main: #FF845D;
+    --btn-bg-main: #6aa3d8;
     --btn-bg-hover: #072032;
     --btn-text-main: #fff;
     --btn-text-hover: #fff;
@@ -59,9 +59,9 @@
   }
 
   .root-layout[theme-setting="style-3"] {
-    --theme: #FFCD4D;
+    --theme: #6aa3d8;
 
-    --btn-bg-main: #FFCD4D;
+    --btn-bg-main: #6aa3d8;
     --btn-bg-hover: #072032;
     --btn-text-main: #072032;
     --btn-text-hover: #fff;
@@ -141,18 +141,18 @@
   }
 
   .root-layout[theme-setting="style-9"] {
-    --theme: #21D37E;
+    --theme: #6aa3d8;
 
-    --btn-bg-main: #21D37E;
+    --btn-bg-main: #6aa3d8;
     --btn-bg-hover: #072032;
     --btn-text-main: #fff;
     --btn-text-hover: #fff;
   }
 
   .root-layout[theme-setting="style-10"] {
-    --theme: #ACE601;
+    --theme: #6aa3d8;
 
-    --btn-bg-main: #ACE601;
+    --btn-bg-main: #6aa3d8;
     --btn-bg-hover: #072032;
     --btn-text-main: #072032;
     --btn-text-hover: #fff;
@@ -161,11 +161,11 @@
   }
 
   .root-layout[theme-setting="style-11"] {
-    --theme: #21D37E;
-    --theme-100: #21D37E10;
-    --theme-300: #21D37E30;
+    --theme: #6aa3d8;
+    --theme-100: #6aa3d810;
+    --theme-300: #6aa3d830;
 
-    --btn-bg-main: #21D37E;
+    --btn-bg-main: #6aa3d8;
     --btn-bg-hover: #072032;
     --btn-text-main: #fff;
     --btn-text-hover: #fff;

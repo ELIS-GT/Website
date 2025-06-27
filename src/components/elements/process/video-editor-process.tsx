@@ -53,6 +53,7 @@ const VideoEditorProcess = ({ process }: Props) => {
               >
                 {i === 0 && (
                   <div className="hidden xl:block absolute start-full top-[55%] w-1/2 2xl:w-full -translate-y-1/2">
+                  
                     <Image
                       width={183}
                       height={128}

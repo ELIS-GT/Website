@@ -33,8 +33,8 @@ type Props = {
 };
 
 const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  fullName: z.string().min(5, {
+    message: "Full name must be at least 5 characters.",
   }),
   email: z
     .string()
@@ -44,7 +44,7 @@ const formSchema = z.object({
     .string()
     .min(1, { message: "This field has to be filled." })
     .refine(validator.isMobilePhone),
-  service: z.string().min(1, { message: "This field has to be filled." }),
+  // service: z.string().min(1, { message: "This field has to be filled." }),
   message: z.string().min(1, { message: "This field has to be filled." }),
 });
 
@@ -52,10 +52,10 @@ const ContactForm = ({ className }: Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      fullName: "",
       email: "",
       phone: "",
-      service: "",
+      // service: "",
       message: "",
     },
   });
@@ -72,7 +72,7 @@ const ContactForm = ({ className }: Props) => {
       >
         <FormField
           control={form.control}
-          name="name"
+          name="fullName"
           render={({ field }) => (
             <FormItem>
               <FormControl>
@@ -118,7 +118,7 @@ const ContactForm = ({ className }: Props) => {
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name="service"
           render={({ field }) => (
@@ -149,7 +149,7 @@ const ContactForm = ({ className }: Props) => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <FormField
           control={form.control}
           name="message"

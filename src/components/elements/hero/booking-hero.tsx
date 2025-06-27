@@ -79,11 +79,11 @@ const BookingHero = ({ hero }: Props) => {
             )}
           </div>
           <div>
-            <div className="has_fade_anim">
+            {/* <div className="has_fade_anim">
               <span className="text-[14px] font-medium px-[11px] py-2 rounded-[5px] bg-gradient-92 from-[#FEE7C4] to-[#BEE5E4]">
                 {sub_title}
-              </span>
-            </div>
+Optimiza y Controla tu Cadena de Suministro con ELIS              </span>
+            </div> */}
             <div className="mt-[22px] md:mt-[32px]">
               <h1
                 className="text-[40px] md:text-[45px] lg:text-[60px] xl:text-[70px] 2xl:text-[90px] has_fade_anim"
@@ -104,7 +104,7 @@ const BookingHero = ({ hero }: Props) => {
             className="mt-[33px] lg:mt-[43px] flex justify-center gap-5 has_fade_anim"
             data-delay="0.45"
           >
-            {action_btn1 && action_btn1.enable && (
+            {/* {action_btn1 && action_btn1.enable && (
               <Link
                 href={action_btn1.link || "#"}
                 className={cn(buttonVariants({ variant: "primary" }))}
@@ -123,7 +123,7 @@ const BookingHero = ({ hero }: Props) => {
                   {action_btn2.label}
                 </span>
               </Link>
-            )}
+            )} */}
           </div>
         </div>
         <div className="relative z-[1] mt-[50px] 2xl:mt-[70px]">
@@ -182,7 +182,7 @@ const BookingHero = ({ hero }: Props) => {
               />
             )}
           </div>
-          <div className="has_fade_anim" data-delay="0.60">
+          {/* <div className="has_fade_anim" data-delay="0.60">
             <Image
               width={1290}
               height={925}
@@ -190,7 +190,7 @@ const BookingHero = ({ hero }: Props) => {
               src={image}
               alt="dashboard image"
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

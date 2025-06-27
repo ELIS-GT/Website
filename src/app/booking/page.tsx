@@ -11,6 +11,10 @@ import BookingIntegration from "@/components/elements/integration/booking-integr
 import BookingPricing from "@/components/elements/pricing/booking-pricing";
 import BookingService from "@/components/elements/service/booking-service";
 import BookingTestimonial from "@/components/elements/testimonial/booking-testimonial";
+import MarketingFeature2 from "@/components/elements/feature/marketing-feature2";
+
+import VideoEditorProcess from "@/components/pages/home/video-editor-process";
+
 
 export default function Page() {
   const hero = getMainPage("/heros/booking-hero.mdx");
@@ -23,11 +27,20 @@ export default function Page() {
   const integration = getMainPage("/integrations/booking-integration.mdx");
   const pricing = getMainPage("/pricings/booking-pricing.mdx");
   const cta = getMainPage("/ctas/cta1.mdx");
+  const feature2 = getMainPage("/features/marketing-feature2.mdx");
+  const process = getMainPage("/processes/video-editor-process.mdx");
 
   return (
     <main>
       <SeoData />
+
+
       <BookingHero hero={hero} />
+
+      <VideoEditorProcess process={process} />
+
+      <MarketingFeature2 feature={feature2} />
+
       <BookingService service={service} services={services} />
       <BookingCounter counter={counter} />
       <BookingBanner banner={banner} />
@@ -36,6 +49,8 @@ export default function Page() {
       <BookingIntegration integration={integration} />
       <BookingPricing pricing={pricing} />
       <CTA1 cta={cta} />
+
+
     </main>
   );
 }

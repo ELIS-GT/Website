@@ -31,10 +31,10 @@ const MainContact = (props: Props) => {
     <section className="pt-[5px] xl:pt-[75px] 2xl:pt-[135px] sec_space_bottom1">
       <div className="container" ref={containerRef}>
         <TitleSection1
-          title="Let’s get in touch"
-          details="Everything you need to dominate app service fortified the industry’s #1 rated our customer support."
+              title="Let’s Get Your Logistics Moving"
+          details="Whether you have questions, need a demo, or want to explore Elis GT or Elis GL, we’re just a click away. Connect with us today and discover how ELIS can power your business forward."
         />
-        <div className="has_fade_anim" data-delay="0.60">
+        {/* <div className="has_fade_anim" data-delay="0.60">
           <iframe
             src={address.iframe_src}
             width="100%"
@@ -44,8 +44,8 @@ const MainContact = (props: Props) => {
             className="rounded-[10px] lg:rounded-theme border-0"
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
-        </div>
-        <div className="flex flex-col md:flex-row justify-between relative gap-[40px] md:gap-[80px] pt-[60px] md:pt-[90px] xl:pt-[120px] 2xl:pt-[180px]">
+        </div> */}
+        <div className="flex flex-col md:flex-row justify-between relative gap-[40px] ">
           <div className="w-max absolute bottom-0 end-[calc(100%+100px)]">
             <Image
               width={153}
@@ -66,13 +66,13 @@ const MainContact = (props: Props) => {
               alt="shape image"
             />
           </div>
-          <div className="max-w-full md:max-w-[240px] has_fade_anim">
+          <div className="max-w-full md:max-w-[350px] has_fade_anim">
             <Title1
-              text="Let’s <span>contact</span> for better result"
+              text="Ready to transform your <span>supply chain with ELIS?</span> Our team is here to help."
               html
               className="mb-[38px] text-center"
             />
-            <div className="hidden md:block w-[1px] h-[120px] bg-primary mx-auto"></div>
+            {/* <div className="hidden md:block w-[1px] h-[120px] bg-primary mx-auto"></div> */}
             <div className="mt-[41px]">
               <ul>
                 <li className="text-[16px] leading-[1.62] text-center mb-[15px]">

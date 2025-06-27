@@ -69,6 +69,9 @@ const Footer1 = ({ footerNav }: Props) => {
           )}
           {copyright && copyright.enable && (
             <p className="text-[16px] font-bold text-white-2">
+{/* print year */}
+              {new Date().getFullYear()}{" "}
+
               {copyright.label}{" "}
               <Link href={copyright.link} className="text-white">
                 {copyright.company}

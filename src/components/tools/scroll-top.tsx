@@ -37,7 +37,20 @@ const ScrollTop = () => {
     <button
       ref={topScroll}
       style={{ display: "none" }}
-      className="fixed w-[50px] h-[50px] right-[5px] sm:right-[10px] md:right-[20px] bottom-[55px] sm:bottom-[60px] md:bottom-[80px] lg:bottom-[20px] z-[9991] rounded-full text-white hover:text-gray-2 bg-white hidden transition-all duration-300 mix-blend-exclusion"
+      className="fixed w-[50px] h-[50px] right-[5px]
+       sm:right-[10px] md:right-[20px] 
+      bottom-[55px] sm:bottom-[60px] md:bottom-[80px]
+       lg:bottom-[20px] z-[9991] rounded-full 
+       text-white hover:text-gray-2 bg-white  
+       transition-all duration-300 
+
+       mix-blend-normal
+       border border-gray-2 hover:border-gray-3
+
+        shadow-theme hover:shadow-theme-hover
+
+
+       "
       onClick={goToTop}
     >
       <FaArrowUp className="w-[14px] h-[16px] text-black-old-2 m-auto" />

@@ -24,6 +24,7 @@ export default function Page() {
         description={meta_description || "Integration page description"}
       />
       <IntegrationHero hero={hero} />
+
       <MainIntegration integration={integration} integrations={integrations} />
       <FAQ1 faq={faq} />
       <CTA3 cta={cta} />
