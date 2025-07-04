@@ -16,6 +16,10 @@ const config = {
     },
     extend: {
       colors: {
+        blue: {
+          dark: "#163974",
+          light: "#6aa3d8",
+        },
         border: {
           DEFAULT: "var(--border)",
           2: "var(--border-2)",
@@ -112,9 +116,10 @@ const config = {
         "gradient-105": "linear-gradient(105.52deg, var(--tw-gradient-stops))",
         "gradient-89": "linear-gradient(89.68deg, var(--tw-gradient-stops))",
         "gradient-105-full":
-          "linear-gradient(105.52deg, #FF856A 0%, #FFED4E 34%, #4BFFF4 69%, #7F52FF 100%)",
+            "linear-gradient(105.52deg, #FF856A 0%, #FFED4E 34%, #4BFFF4 69%, #7F52FF 100%)",
         "gradient-135-full":
-          "linear-gradient(135deg, rgba(255, 133, 107, 1) 0%, rgba(255, 228, 69, 1) 33%, rgba(81, 252, 255, 1) 66%, rgba(125, 89, 255, 1) 100%)",
+            "linear-gradient(135deg, rgba(255, 133, 107, 1) 0%, rgba(255, 228, 69, 1) 33%, rgba(81, 252, 255, 1) 66%, rgba(125, 89, 255, 1) 100%)",
+        "gradient-blue": `linear-gradient(to right, #163974, #6aa3d8)`,
       },
       boxShadow: {
         integration: "10px 10px 45px rgba(0, 0, 0, 0.07)",
