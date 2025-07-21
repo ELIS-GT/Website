@@ -1,0 +1,45 @@
+{
+    "executionRoleArn": "arn:aws:iam::611574179649:role/ECS_ETERNITY",
+    "memory": "2048",
+    "cpu": "1024",
+    "taskRoleArn": "arn:aws:iam::611574179649:role/ECS_ETERNITY",
+    "family": "elis-gt",
+    "containerDefinitions": [
+        {
+            "name": "elis-gt-homepage",
+            "image": "611574179649.dkr.ecr.us-east-1.amazonaws.com/etydevops/elis-gt-homepage:$COMMIT",
+            "cpu": 1024,
+            "memory": 2048,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "elis-gt",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "portMappings": [
+                {
+                    "protocol": "tcp",
+                    "containerPort": 3100
+                }
+            ],
+            "environment": [
+                {
+                    "name": "PORT",
+                    "value": "3100"
+                },
+                {
+                    "name": "NODE_ENV",
+                    "value": "production"
+                }
+            ],
+            "essential": true,
+            "readonlyRootFilesystem": false
+        }
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "networkMode": "awsvpc"
+}

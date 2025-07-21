@@ -1,0 +1,229 @@
+name: CI/CD Workflow
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  # Global environment variables
+  AWS_REGION: us-east-1
+  ECR_REGISTRY: 611574179649.dkr.ecr.us-east-1.amazonaws.com
+  IMAGE_NAME: etydevops/elis-gt-homepage
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history for better git operations
+  
+      - name: Define variables
+        run: |
+          COMMIT=$(git rev-parse --short HEAD)
+          IMAGE_TAG=1.0.0-${GITHUB_RUN_NUMBER}
+          ECR_REPO=${ECR_REGISTRY}/${IMAGE_NAME}:${COMMIT}
+          
+          echo "COMMIT=$COMMIT" >> $GITHUB_ENV
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+          echo "ECR_REPO=$ECR_REPO" >> $GITHUB_ENV
+  
+      - name: Print and validate variables
+        run: |
+          echo "🔍 Build Information:"
+          echo "COMMIT: $COMMIT"
+          echo "IMAGE_NAME: $IMAGE_NAME"
+          echo "IMAGE_TAG: $IMAGE_TAG"
+          echo "ECR_REPO: $ECR_REPO"
+          echo "AWS_REGION: $AWS_REGION"
+          
+          echo "✅ Validating variables..."
+          [[ -n "$COMMIT" ]] || { echo "❌ COMMIT is empty"; exit 1; }
+          [[ -n "$IMAGE_TAG" ]] || { echo "❌ IMAGE_TAG is empty"; exit 1; }
+          [[ -n "$ECR_REPO" ]] || { echo "❌ ECR_REPO is empty"; exit 1; }
+          echo "✅ All variables validated successfully"
+
+      # 🔥 Setup Docker Buildx for advanced caching
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+  
+      - name: Log in to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+  
+      # 🔥 Build with cache optimization and load locally
+      - name: Build and push Docker image to DockerHub
+        run: |
+          echo "🐳 Building Docker image with caching..."
+          docker buildx build \
+            --cache-from type=local,src=/tmp/.buildx-cache \
+            --cache-to type=local,dest=/tmp/.buildx-cache-new,mode=max \
+            --load \
+            --tag $IMAGE_NAME:$IMAGE_TAG \
+            --tag $IMAGE_NAME:latest \
+            .
+          
+          echo "📤 Pushing to DockerHub..."
+          docker push $IMAGE_NAME:$IMAGE_TAG
+          docker push $IMAGE_NAME:latest
+          
+          # Move cache to avoid growing cache
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+          
+      - name: Log in to Amazon ECR
+        run: |
+          echo "🔐 Logging into Amazon ECR..."
+          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
+
+      - name: Tag and push image to Amazon ECR
+        run: |
+          echo "🏷️ Tagging image for ECR..."
+          docker tag $IMAGE_NAME:$IMAGE_TAG $ECR_REPO
+          
+          echo "📤 Pushing to Amazon ECR..."
+          docker push $ECR_REPO
+          
+          echo "✅ Successfully pushed to ECR: $ECR_REPO"
+
+      - name: Prepare task definition
+        run: |
+          echo "📋 Preparing ECS task definition..."
+          sed -i -e 's;$COMMIT;'"$COMMIT"';g' deploy/task-definition-fargate.json
+          
+          echo "📄 Task definition content:"
+          cat deploy/task-definition-fargate.json
+          
+          echo "✅ Task definition prepared successfully"
+  
+      # 📦 Upload task definition as artifact for debugging
+      - name: Upload task definition JSON
+        uses: actions/upload-artifact@v4
+        with:
+          name: task-definition-${{ env.COMMIT }}
+          path: deploy/task-definition-fargate.json
+          retention-days: 30
+  
+      - name: Register task definition and export ARN
+        run: |
+          echo "📝 Registering ECS task definition..."
+          TASK_DEF_ARN=$(aws ecs register-task-definition \
+            --cli-input-json file://deploy/task-definition-fargate.json \
+            --query 'taskDefinition.taskDefinitionArn' \
+            --output text)
+          
+          echo "TASK_DEF_ARN=$TASK_DEF_ARN" >> $GITHUB_ENV
+          echo "✅ Task definition registered: $TASK_DEF_ARN"
+      
+      - name: Update or create ECS service
+        env:
+          IMAGE_PORT: 3100
+          SERVICE_NAME: ELIS-GT-HOMEPAGE-SERVICE
+          CLUSTER_NAME: ELIS-GT
+          TARGET_GROUP_ARN: arn:aws:elasticloadbalancing:us-east-1:611574179649:targetgroup/TG-ELIS-LP/17895bfc2a532fb5
+        run: |
+          echo "🚀 Deploying to ECS..."
+          
+          # Check if service exists and get status
+          serviceExists=$(aws ecs describe-services \
+            --cluster $CLUSTER_NAME \
+            --services $SERVICE_NAME \
+            --region $AWS_REGION | jq '.services | length')
+          
+          if [[ $serviceExists -gt 0 ]]; then
+            serviceStatus=$(aws ecs describe-services \
+              --cluster $CLUSTER_NAME \
+              --services $SERVICE_NAME \
+              --region $AWS_REGION | jq -r '.services[0].status')
+            echo "📊 Service exists with status: $serviceStatus"
+          else
+            echo "📊 Service does not exist"
+          fi
+          
+          if [[ $serviceExists == "0" || $serviceStatus == "INACTIVE" ]]; then
+            echo "🆕 Creating new ECS service..."
+            aws ecs create-service \
+              --launch-type FARGATE \
+              --cluster $CLUSTER_NAME \
+              --desired-count 1 \
+              --service-name $SERVICE_NAME \
+              --region $AWS_REGION \
+              --task-definition $TASK_DEF_ARN \
+              --load-balancers targetGroupArn=$TARGET_GROUP_ARN,containerName=$IMAGE_NAME,containerPort=$IMAGE_PORT \
+              --network-configuration 'awsvpcConfiguration={subnets=[subnet-0deb4ed7d24a705d6,subnet-049a42f71e5fa7a49,subnet-0c8d0f8693bba9b6a],securityGroups=[sg-0b9d2a8b3b8513981],assignPublicIp=ENABLED}'
+            echo "✅ Service created successfully"
+          elif [[ $serviceStatus == "ACTIVE" ]]; then
+            echo "🔄 Updating existing ECS service..."
+            aws ecs update-service \
+              --cluster $CLUSTER_NAME \
+              --service $SERVICE_NAME \
+              --region $AWS_REGION \
+              --task-definition $TASK_DEF_ARN
+            echo "✅ Service updated successfully"
+          else
+            echo "⚠️ Service $SERVICE_NAME exists but is in state $serviceStatus. Manual verification required."
+            exit 1
+          fi
+          
+          echo "🎯 Deployment completed successfully!"
+
+      # 🧹 Cleanup resources
+      - name: Cleanup Docker images
+        if: always()
+        run: |
+          echo "🧹 Cleaning up Docker images..."
+          docker rmi $IMAGE_NAME:$IMAGE_TAG || echo "⚠️ Could not remove $IMAGE_NAME:$IMAGE_TAG"
+          docker rmi $IMAGE_NAME:latest || echo "⚠️ Could not remove $IMAGE_NAME:latest"
+          docker rmi $ECR_REPO || echo "⚠️ Could not remove $ECR_REPO"
+          
+          # Clean up dangling images
+          docker image prune -f || echo "⚠️ Could not prune dangling images"
+          
+          echo "✅ Cleanup completed"
+          
+      # 📊 Post-deployment verification
+      - name: Verify deployment
+        if: success()
+        run: |
+          echo "🔍 Verifying deployment..."
+          
+          # Wait a moment for the service to start updating
+          sleep 10
+          
+          # Check service status
+          SERVICE_STATUS=$(aws ecs describe-services \
+            --cluster ELIS-GT \
+            --services ELIS-GT-HOMEPAGE-SERVICE \
+            --region $AWS_REGION \
+            --query 'services[0].status' \
+            --output text)
+          
+          echo "📊 Final service status: $SERVICE_STATUS"
+          
+          if [[ "$SERVICE_STATUS" == "ACTIVE" ]]; then
+            echo "✅ Deployment verification successful!"
+          else
+            echo "⚠️ Service status is not ACTIVE, please check manually"
+          fi
