@@ -59,7 +59,7 @@ const Footer1 = ({ footerNav }: Props) => {
         </div>
         <div className="flex flex-wrap justify-between gap-x-[60px] gap-y-[10px] py-[38px] flex-col md:flex-row items-center md:items-start border-t border-[#ffffff1a]">
           {social && social.length && (
-            <ul className="flex gap-[24px]">
+            <ul className="flex gap-[18px]">
               {social.map((item, i) => (
                 <li key={`social_share-${i}`} className="leading-none">
                   {socialShare1(item, "text-white-2 hover:text-white")}
@@ -69,7 +69,6 @@ const Footer1 = ({ footerNav }: Props) => {
           )}
           {copyright && copyright.enable && (
             <p className="text-[16px] font-bold text-white-2">
-{/* print year */}
               {new Date().getFullYear()}{" "}
 
               {copyright.label}{" "}

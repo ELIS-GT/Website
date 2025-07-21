@@ -1,39 +1,30 @@
+import Image from "next/image";
+
 export default function Loading() {
   return (
-    <div>
-      <div className="flex justify-center items-center fixed h-full w-full left-0 top-0 z-[900]">
-        <div className="absolute z-[100] flex flex-col justify-center items-center">
-          <div className="h-[9em] w-[9em] rounded-full border-[10px] border-[#00000033] border-t-primary my-auto animate-spin"></div>
-          <div className="text-[5em] font-[Montserrat, sans-serif] font-bold text-center select-none">
-            <span
-              data-text="E"
-              className="inline-block relative text-[#00000033] before:text-primary before:content-[attr(data-text)] before:animate-[characters_4s_infinite] before:left-0 before:top-0 before:opacity-0 before:absolute -before:rotate-y-90"
-            >
-              E
-            </span>
-            <span
-              data-text="L"
-              className="inline-block relative text-[#00000033] before:text-primary before:content-[attr(data-text)] before:animate-[characters_4s_infinite_0.2s] before:left-0 before:top-0 before:opacity-0 before:absolute -before:rotate-y-90"
-            >
-              L
-            </span>
-            <span
-              data-text="I"
-              className="inline-block relative text-[#00000033] before:text-primary before:content-[attr(data-text)] before:animate-[characters_4s_infinite_0.4s] before:left-0 before:top-0 before:opacity-0 before:absolute -before:rotate-y-90"
-            >
-              I
-            </span>
-            <span
-              data-text="S"
-              className="inline-block relative text-[#00000033] before:text-primary before:content-[attr(data-text)] before:animate-[characters_4s_infinite_0.6s] before:left-0 before:top-0 before:opacity-0 before:absolute -before:rotate-y-90"
-            >
-              S
-            </span>
-   
-          </div>
+    <div className="flex justify-center items-center fixed h-full w-full left-0 top-0 z-[900] bg-white">
+      <div className="flex flex-col justify-center items-center">
+        {/* Logo */}
+        <div className="relative mb-8 animate-pulse">
+          <Image
+            src="/assets/imgs/logo/logo.png"
+            alt="ELIS Logo"
+            width={120}
+            height={40}
+            className="object-contain"
+            priority
+          />
         </div>
-        <div className="fixed top-0 left-0 bg-white w-[calc(50%+1px)] h-full"></div>
-        <div className="fixed top-0 right-0 bg-white w-[calc(50%+1px)] h-full"></div>
+        
+        {/* Spinner */}
+        <div className="relative">
+          <div className="h-12 w-12 rounded-full border-4 border-gray-200 border-t-primary animate-spin"></div>
+        </div>
+        
+        {/* Loading text */}
+        <p className="mt-4 text-gray-600 text-sm font-medium animate-pulse">
+          Loading...
+        </p>
       </div>
     </div>
   );

@@ -31,17 +31,17 @@ export const socialShare1 = (item: SocialType, className: string) => {
           <FaFacebookF />
         </Link>
       );
-    case "Tw":
-      return (
-        <Link
-          href={item.link}
-          target="_blank"
-          key={item.link}
-          className={cn("relative z-10", className)}
-        >
-          <FaTwitter />
-        </Link>
-      );
+    // case "Tw":
+    //   return (
+    //     <Link
+    //       href={item.link}
+    //       target="_blank"
+    //       key={item.link}
+    //       className={cn("relative z-10", className)}
+    //     >
+    //       <FaTwitter />
+    //     </Link>
+    //   );
     case "In":
       return (
         <Link
@@ -51,17 +51,6 @@ export const socialShare1 = (item: SocialType, className: string) => {
           className={cn("relative z-10", className)}
         >
           <FaInstagram />
-        </Link>
-      );
-    case "Db":
-      return (
-        <Link
-          href={item.link}
-          target="_blank"
-          key={item.link}
-          className={cn("relative z-10", className)}
-        >
-          <FaDribbble />
         </Link>
       );
     case "Li":

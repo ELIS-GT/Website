@@ -20,6 +20,12 @@ const config = {
           dark: "#163974",
           light: "#6aa3d8",
         },
+        elis: {
+          purple: "#7e4192",
+          teal: "#0e7d80",
+          "purple-light": "#a456b8",
+          "teal-light": "#1aa5a8",
+        },
         border: {
           DEFAULT: "var(--border)",
           2: "var(--border-2)",

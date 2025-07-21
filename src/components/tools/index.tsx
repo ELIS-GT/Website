@@ -11,7 +11,7 @@ const ToolsComponent = () => {
   return (
     <>
       <CursorAnimation cursor1={cursor1} cursor2={cursor2} />
-      <Switcher cursor1={cursor1} cursor2={cursor2} />
+      {/* <Switcher cursor1={cursor1} cursor2={cursor2} /> */}
     </>
   );
 };

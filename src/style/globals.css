@@ -14,9 +14,14 @@
     --border: #EBEDEF;
     --border-2: #5C6972;
 
-    --theme: #6aa3d8;
-    --theme-100: #6aa3d810;
-    --theme-300: #6aa3d830;
+    --theme: #7e4192;
+    --theme-100: #7e419210;
+    --theme-300: #7e419230;
+
+    --elis-purple: #7e4192;
+    --elis-teal: #0e7d80;
+    --elis-purple-light: #a456b8;
+    --elis-teal-light: #1aa5a8;
 
     --black: #072032;
     --black-2: #5C6972;
@@ -27,7 +32,7 @@
     --white-2: #9BA0A3;
     --white-3: #FAFAFA;
 
-    --action: #6aa3d8;
+    --action: #7e4192;
 
     --gray: #666666;
     --gray-2: #d9d9d9;
@@ -38,12 +43,12 @@
 
     --destructive: #ff3333;
 
-    --btn-bg-main: #6aa3d8;
-    --btn-bg-hover: #072032;
+    --btn-bg-main: #7e4192;
+    --btn-bg-hover: #0e7d80;
     --btn-text-main: #fff;
     --btn-text-hover: #fff;
 
-    --btn2-bg-hover: #072032;
+    --btn2-bg-hover: #0e7d80;
     --btn2-text-hover: #fff;
   }
 
@@ -436,3 +441,6 @@
     @apply text-primary font-instrument font-semibold leading-[1.08]
   }
 }
+
+
+

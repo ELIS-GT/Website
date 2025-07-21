@@ -1,10 +1,8 @@
 import navigation from "@/config/navigation.json";
 
 // Components
-import Header1 from "@/components/elements/header/header1";
 import Footer1 from "@/components/elements/footer/footer1";
 import ScrollSmootherComponent from "@/components/tools/scroll-smoother";
-import ToolsComponent from "@/components/tools";
 import ScrollTop from "@/components/tools/scroll-top";
 import Header3 from "@/components/elements/header/header3";
 
