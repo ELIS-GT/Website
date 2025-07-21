@@ -11,6 +11,7 @@ env:
   AWS_REGION: us-east-1
   ECR_REGISTRY: 611574179649.dkr.ecr.us-east-1.amazonaws.com
   IMAGE_NAME: etydevops/elis-gt-homepage
+  CONTAINER_NAME: elis-gt-homepage
 
 jobs:
   build-and-deploy:
@@ -171,7 +172,7 @@ jobs:
               --service-name $SERVICE_NAME \
               --region $AWS_REGION \
               --task-definition $TASK_DEF_ARN \
-              --load-balancers targetGroupArn=$TARGET_GROUP_ARN,containerName=$IMAGE_NAME,containerPort=$IMAGE_PORT \
+              --load-balancers targetGroupArn=$TARGET_GROUP_ARN,containerName=$CONTAINER_NAME,containerPort=$IMAGE_PORT \
               --network-configuration 'awsvpcConfiguration={subnets=[subnet-0deb4ed7d24a705d6,subnet-049a42f71e5fa7a49,subnet-0c8d0f8693bba9b6a],securityGroups=[sg-0b9d2a8b3b8513981],assignPublicIp=ENABLED}'
             echo "✅ Service created successfully"
           elif [[ $serviceStatus == "ACTIVE" ]]; then
