@@ -1,4 +1,5 @@
 import { AppContextProvider } from "@/context/app.context";
+import GoogleAnalytics from "@/lib/analytics";
 
 // styles
 import "@/style/globals.css";
@@ -22,6 +23,12 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning={true} dir="ltr">
+        {/* Google Analytics & GTM */}
+        <GoogleAnalytics 
+          gaId={process.env.NEXT_PUBLIC_GA_ID || ''}
+          gtmId={process.env.NEXT_PUBLIC_GTM_ID}
+        />
+        
         <AppContextProvider>
           <div className="has-smooth" id="has_smooth"></div>
           {children}

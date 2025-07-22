@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useMemo } from "react";
+import { useAnalytics } from "@/lib/useAnalytics";
 import { 
   ArrowRight, 
   Monitor,
@@ -33,6 +34,7 @@ const PlatformSection = () => {
   const containerRef = useRef<HTMLDivElement>(null!);
   const [activeFeature, setActiveFeature] = useState(0);
   const [expandedFeature, setExpandedFeature] = useState<number | null>(null);
+  const { trackButtonClick, trackDemoRequest, trackTrialStart } = useAnalytics();
 
   const platformFeatures = useMemo(() => [
     {
@@ -169,11 +171,23 @@ const PlatformSection = () => {
             ELIS provides comprehensive logistics visibility and control through advanced analytics, real-time tracking, and automated reporting. Built for companies ready to modernize their supply chain operations.
           </p>
           <div className="flex gap-4 justify-center">
-            <button className="px-8 py-4 bg-gradient-to-r from-[#7e4192] to-[#0e7d80] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2">
+            <button 
+              onClick={() => {
+                trackButtonClick('Watch Demo', 'Platform Header');
+                trackDemoRequest('platform_header');
+              }}
+              className="px-8 py-4 bg-gradient-to-r from-[#7e4192] to-[#0e7d80] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+            >
               <Play className="w-4 h-4" />
               Watch Demo
             </button>
-            <button className="px-6 py-4 border-2 border-[#7e4192] text-[#7e4192] font-semibold rounded-xl hover:bg-[#7e4192] hover:text-white transition-all duration-300">
+            <button 
+              onClick={() => {
+                trackButtonClick('Request Trial', 'Platform Header');
+                trackTrialStart('platform_header');
+              }}
+              className="px-6 py-4 border-2 border-[#7e4192] text-[#7e4192] font-semibold rounded-xl hover:bg-[#7e4192] hover:text-white transition-all duration-300"
+            >
               Request Trial
             </button>
           </div>
@@ -531,11 +545,22 @@ const PlatformSection = () => {
                 Schedule a personalized demo to see the platform in action.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-                <button className="px-12 py-6 bg-white text-[#7e4192] font-bold rounded-2xl shadow-2xl hover:shadow-white/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-3">
+                <button 
+                  onClick={() => {
+                    trackButtonClick('Request Platform Demo', 'Platform CTA');
+                    trackDemoRequest('platform_cta');
+                  }}
+                  className="px-12 py-6 bg-white text-[#7e4192] font-bold rounded-2xl shadow-2xl hover:shadow-white/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-3"
+                >
                   <span className="text-lg">Request Platform Demo</span>
                   <ArrowRight className="w-5 h-5" />
                 </button>
-                <button className="px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-2xl hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2">
+                <button 
+                  onClick={() => {
+                    trackButtonClick('Contact Sales Team', 'Platform CTA');
+                  }}
+                  className="px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-2xl hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2"
+                >
                   <span>Contact Sales Team</span>
                   <FileText className="w-4 h-4" />
                 </button>

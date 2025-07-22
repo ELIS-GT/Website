@@ -32,6 +32,14 @@
                 {
                     "name": "NODE_ENV",
                     "value": "production"
+                },
+                {
+                    "name": "NEXT_PUBLIC_GA_ID",
+                    "value": "G-CGBEMREE6B"
+                },
+                {
+                    "name": "NEXT_PUBLIC_GTM_ID",
+                    "value": "GTM-THZF24M7"
                 }
             ],
             "essential": true,
