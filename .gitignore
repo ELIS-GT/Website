@@ -38,3 +38,13 @@ next-env.d.ts
 # idea files
 .idea
 .idea*
+
+# environment files
+.env.example
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*
+.env*
