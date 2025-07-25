@@ -30,6 +30,9 @@ RUN npm run build
 FROM node:22.3.0-alpine AS runner
 WORKDIR /app
 
+# Instalar curl para health checks
+RUN apk add --no-cache curl
+
 # Crear usuario no-root para seguridad
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
